@@ -4,8 +4,9 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
+  has_one_attached :avatar
+
   has_many :contacts, dependent: :destroy
   has_many :conversants, dependent: :destroy
-
   has_many :admin_groups, class_name: 'Group', foreign_key: 'admin_id'
 end
