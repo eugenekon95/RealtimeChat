@@ -4,7 +4,4 @@ class Group < ApplicationRecord
   has_many :users, through: :group_users
   has_many :contacts, as: :contactable, dependent: :destroy
 
-
-  has_many :added_users, through: :contacts, source: :contactable, source_type: 'User'
-  has_many :added_groups, through: :contacts, source: :contactable, source_type: 'Group'
 end
