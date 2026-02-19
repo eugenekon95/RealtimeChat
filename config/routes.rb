@@ -3,9 +3,14 @@ Rails.application.routes.draw do
   devise_for :users
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
   resources :users, only: [:show]
-  resources :groups
   resources :users, only: [] do
+    resource :avatar, only: [:destroy], module: :users
     resources :contacts, only: [:index, :create, :destroy]
+  end
+
+  resources :groups
+  resources :groups, only: [] do
+    resource :avatar, only: [:destroy], module: :groups
   end
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
