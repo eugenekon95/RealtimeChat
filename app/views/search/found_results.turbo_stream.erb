@@ -1,0 +1,15 @@
+<%= turbo_stream.update "found-results" do %>
+
+  <%= render "search/results_section",
+             title: "FOUND USERS",
+             collection: @found_users,
+             partial: "search/user_complete",
+             as: :user %>
+
+  <%= render "search/results_section",
+             title: "FOUND GROUPS",
+             collection: @found_groups,
+             partial: "groups/group",
+             as: :group %>
+
+<% end %>

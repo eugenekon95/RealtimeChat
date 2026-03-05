@@ -7,4 +7,17 @@ class Group < ApplicationRecord
   has_many :users, through: :group_users
   has_many :contacts, as: :contactable, dependent: :destroy
 
+
+  def self.find_groups(search_item)
+
+    begin
+      groups = where("name ~* :s", {s: search_item })
+      return nil if groups.empty?
+      groups
+
+    rescue => exception
+      nil
+    end
+
+  end
 end
