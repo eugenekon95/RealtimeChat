@@ -1,0 +1,128 @@
+<div class="<%= auth_form_wrapper_class %>">
+
+  <h2 class="<%= auth_title_class %>">
+    Edit <%= resource_name.to_s.humanize %>
+  </h2>
+
+  <%= form_for(resource,
+               as: resource_name,
+               url: registration_path(resource_name),
+               html: { method: :put, class: "space-y-5" }) do |f| %>
+
+    <%= render "devise/shared/error_messages", resource: resource %>
+
+    <div class="my-6">
+      <%= f.label :avatar, class: auth_label_class %>
+
+      <% if current_user&.avatar.present? %>
+        <div class="flex items-center gap-4 mt-2">
+
+          <%= image_tag current_user.avatar,
+                        class: "w-16 h-16 rounded-full object-cover border" %>
+
+          <%= link_to "Delete",
+                      user_avatar_path(current_user),
+                      data: {
+                        turbo_method: :delete,
+                        turbo_confirm: "Are you sure?"
+                      },
+                      class: "text-sm text-red-600 hover:text-red-700" %>
+
+        </div>
+      <% end %>
+
+      <%= f.file_field :avatar,
+                       class: "#{auth_input_class} mt-3" %>
+    </div>
+
+    <div>
+      <%= f.label :name, class: auth_label_class %>
+      <%= f.text_field :name,
+                       autofocus: true,
+                       autocomplete: "name",
+                       class: auth_input_class %>
+    </div>
+
+    <div>
+      <%= f.label :email, class: auth_label_class %>
+      <%= f.email_field :email,
+                        autocomplete: "email",
+                        class: auth_input_class %>
+    </div>
+
+    <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+      <div class="text-sm text-yellow-700 bg-yellow-50 border border-yellow-200 rounded-lg p-3">
+        Currently waiting confirmation for
+        <strong><%= resource.unconfirmed_email %></strong>
+      </div>
+    <% end %>
+
+    <div>
+      <%= f.label :password, class: auth_label_class %>
+
+      <p class="text-xs text-gray-500 mb-1">
+        Leave blank if you don't want to change it
+      </p>
+
+      <%= f.password_field :password,
+                           autocomplete: "new-password",
+                           class: auth_input_class %>
+
+      <% if @minimum_password_length %>
+        <p class="text-xs text-gray-500 mt-1">
+          <%= @minimum_password_length %> characters minimum
+        </p>
+      <% end %>
+    </div>
+
+    <div>
+      <%= f.label :password_confirmation, class: auth_label_class %>
+      <%= f.password_field :password_confirmation,
+                           autocomplete: "new-password",
+                           class: auth_input_class %>
+    </div>
+
+    <div>
+      <%= f.label :current_password, class: auth_label_class %>
+
+      <p class="text-xs text-gray-500 mb-1">
+        We need your current password to confirm changes
+      </p>
+
+      <%= f.password_field :current_password,
+                           autocomplete: "current-password",
+                           class: auth_input_class %>
+    </div>
+
+    <div class="pt-2">
+      <%= f.submit "Update", class: auth_submit_class %>
+    </div>
+
+  <% end %>
+
+
+  <div class="mt-10 pt-6 border-t border-gray-200 dark:border-gray-700 space-y-3">
+
+    <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
+      Cancel account
+    </h3>
+
+    <p class="text-sm text-gray-500">
+      This action cannot be undone.
+    </p>
+
+    <%= button_to "Cancel my account",
+                  registration_path(resource_name),
+                  method: :delete,
+                  data: { turbo_confirm: "Are you sure?" },
+                  class: "px-4 py-2 text-sm font-medium text-white bg-red-600 rounded-lg hover:bg-red-700" %>
+
+  </div>
+
+  <div class="mt-6 text-center">
+    <%= link_to "Back",
+                :back,
+                class: auth_link_class %>
+  </div>
+
+</div>

@@ -15,6 +15,9 @@ module RealtimeChat
     # not contain `.rb` files, or that should not be reloaded or eager loaded.
     # Common ones are `templates`, `generators`, or `middleware`, for example.
     config.autoload_lib(ignore: %w[assets tasks])
+    config.generators.assets = false
+    config.generators.helper = false
+    config.generators.test_framework = false
 
     # Configuration for the application, engines, and railties goes here.
     #
