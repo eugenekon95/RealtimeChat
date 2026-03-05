@@ -13,6 +13,8 @@ Rails.application.routes.draw do
     resource :avatar, only: [:destroy], module: :groups
   end
 
+  get "search", to: "search#find_all"
+
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
   # Can be used by load balancers and uptime monitors to verify that the app is live.
   get "up" => "rails/health#show", as: :rails_health_check
