@@ -11,6 +11,11 @@ Rails.application.routes.draw do
   resources :groups
   resources :groups, only: [] do
     resource :avatar, only: [:destroy], module: :groups
+    resources :messages
+  end
+
+  resources :rooms do
+    resources :messages
   end
 
   get "search", to: "search#find_all"
