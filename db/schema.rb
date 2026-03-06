@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_02_08_112725) do
+ActiveRecord::Schema[8.1].define(version: 2026_03_06_142927) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -79,6 +79,17 @@ ActiveRecord::Schema[8.1].define(version: 2026_02_08_112725) do
     t.index ["admin_id"], name: "index_groups_on_admin_id"
   end
 
+  create_table "messages", force: :cascade do |t|
+    t.text "body"
+    t.datetime "created_at", null: false
+    t.bigint "messageable_id", null: false
+    t.string "messageable_type", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "user_id", null: false
+    t.index ["messageable_type", "messageable_id"], name: "index_messages_on_messageable"
+    t.index ["user_id"], name: "index_messages_on_user_id"
+  end
+
   create_table "rooms", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.string "name"
@@ -106,4 +117,5 @@ ActiveRecord::Schema[8.1].define(version: 2026_02_08_112725) do
   add_foreign_key "group_users", "groups"
   add_foreign_key "group_users", "users"
   add_foreign_key "groups", "users", column: "admin_id"
+  add_foreign_key "messages", "users"
 end

@@ -6,6 +6,7 @@ class Group < ApplicationRecord
   has_many :group_users, dependent: :destroy
   has_many :users, through: :group_users
   has_many :contacts, as: :contactable, dependent: :destroy
+  has_many :messages, as: :messageable, dependent: :destroy
 
 
   def self.find_groups(search_item)
